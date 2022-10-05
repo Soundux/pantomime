@@ -1,0 +1,36 @@
+on:
+  workflow_dispatch:
+
+name: Update Mime-DB
+jobs:
+  update-mime:
+    runs-on: ubuntu-latest
+    container: archlinux
+    strategy:
+      fail-fast: false
+      matrix:
+        language: ["cpp"]
+
+    steps:
+      - name: ✅ Checkout
+        uses: actions/checkout@v2.4.0
+
+      - name: 🏗️ Install build dependencies
+        run: "pacman --noconfirm -Syu base-devel cmake gcc git make wget clang"
+
+      - name: 🔨 Compile
+        run: "mkdir build && cd build && cmake .. -Dpantomime_fetcher=ON && cmake --build . --config Debug"
+
+      - name: ♻️ Download Mime-DB
+        run: "wget https://raw.githubusercontent.com/jshttp/mime-db/master/db.json"
+
+      - name: 📥 Fetch Changes
+        run: "./build/fetcher db.json src/db.hpp"
+
+      - name: 🤖 Run Clang-Format
+        run: "clang-format -i src/db.hpp"
+
+      - uses: EndBug/add-and-commit@v9
+        with:
+          push: true
+          add: "src/db.hpp"
