@@ -30,7 +30,7 @@ jobs:
       - name: 🤖 Run Clang-Format
         run: "clang-format -i src/db.hpp"
 
-      - uses: EndBug/add-and-commit@v9
+      - name: 🌍 Commit & Push changes
+        uses: actions-js/push@master
         with:
-          push: true
-          add: "src/db.hpp"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
