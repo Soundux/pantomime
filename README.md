@@ -8,12 +8,12 @@
 
 <div align="center"> 
 
-# 📋 About
+### 📋 About
 
 _Pantomime_ is a simple to use, zero-dependency, straight-forward, C++17 library for work with mime-types.
 
 
-# 📦 Installation
+### 📦 Installation
 
 <div align="left">
 
@@ -38,7 +38,7 @@ _Pantomime_ is a simple to use, zero-dependency, straight-forward, C++17 library
 
 </div>
 
-# 🚀 Simple Example
+### 🚀 Simple Example
 
 </div>
 
