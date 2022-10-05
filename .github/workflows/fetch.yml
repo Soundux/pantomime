@@ -5,7 +5,6 @@ name: Update Mime-DB
 jobs:
   update-mime:
     runs-on: ubuntu-latest
-    container: archlinux
     strategy:
       fail-fast: false
       matrix:
@@ -16,7 +15,7 @@ jobs:
         uses: actions/checkout@v2.4.0
 
       - name: 🏗️ Install build dependencies
-        run: "pacman --noconfirm -Syu base-devel cmake gcc git make wget clang"
+        run: "sudo apt-get update && sudo apt-get install git build-essential cmake"
 
       - name: 🔨 Compile
         run: "mkdir build && cd build && cmake .. -Dpantomime_fetcher=ON && cmake --build . --config Debug"
