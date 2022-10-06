@@ -26,6 +26,11 @@ namespace pantomime
 
     std::optional<mime> mime::from(const std::filesystem::path &file)
     {
+        if (!file.has_extension())
+        {
+            return std::nullopt;
+        }
+
         auto extension = file.extension().string().substr(1);
         auto mime = std::find_if(mimes.begin(), mimes.end(), [&extension](const auto &item) { return item.second.extensions.count(extension); });
 
